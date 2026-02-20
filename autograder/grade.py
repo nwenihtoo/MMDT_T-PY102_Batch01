@@ -21,11 +21,12 @@ MIN_ID = 1
 MAX_ID = 44
 
 # Allowed lab filenames
-ALLOWED_LABS = {"lab01.py", "lab02.py", "lab03.py", 
+ALLOWED_LABS = {"lab00.py", "lab01.py", "lab02.py", "lab03.py", 
                 "lab04.py", "lab05.py", "lab06.py", "lab07.py"}
 
 TZ = ZoneInfo("America/Chicago")
 LAB_DEADLINES = {
+    "lab00.py": "2026-02-26 23:59",
     "lab01.py": "2026-03-07 23:59",
     "lab02.py": "2026-03-14 23:59",
     "lab03.py": "2026-03-21 23:59",
