@@ -36,6 +36,17 @@ LAB_DEADLINES = {
     "lab07.py": "2026-04-18 23:59",
 }
 
+LAB_TO_TEST = {
+    "lab00.py": "autograder/tests/test_lab00.py",
+    "lab01.py": "autograder/tests/test_lab01.py",
+    "lab02.py": "autograder/tests/test_lab02.py",
+    "lab03.py": "autograder/tests/test_lab03.py",
+    "lab04.py": "autograder/tests/test_lab04.py",
+    "lab05.py": "autograder/tests/test_lab05.py",
+    "lab06.py": "autograder/tests/test_lab06.py",
+    "lab07.py": "autograder/tests/test_lab07.py",
+}
+
 # Late policy
 GRACE_DAYS = 2
 LATE_PENALTY_POINTS = 6      
@@ -223,9 +234,13 @@ def main() -> None:
     env["LABS_TOUCHED"] = ",".join(sorted(labs_touched))
 
     # 5) Run tests
+    tests_to_run = [LAB_TO_TEST[lab] for lab in sorted(labs_touched)]
     cmd = ["pytest", "-q", "autograder/tests", "--timeout=5"]
     p = subprocess.run(cmd, cwd=REPO_ROOT, env=env, text=True)
-    sys.exit(p.returncode)
+    if p.returncode != 0:
+      sys.exit(p.returncode)
+
+   # 6) Apply late policy
 
     if not RESULTS_FILE.exists():
         print("❌ Could not find autograder/results.json (did conftest.py write it?)")
@@ -239,7 +254,6 @@ def main() -> None:
 
     final_score, late_messages = apply_late_policy(
         earned=earned,
-        max_points=max_points,
         labs_touched=labs_touched,
         submitted_at=submitted_at,
     )
