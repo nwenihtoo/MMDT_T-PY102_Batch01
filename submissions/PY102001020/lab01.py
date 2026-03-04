@@ -59,18 +59,20 @@ def reverseList(head):
     Time: O(n), Space: O(1)
     """
     # TODO: Implement
-    # raise NotImplementedError
 
     prev = None
-    crt = head
+    curr = head
     
-    while crt:
-        next_node = crt.next
-        crt.next = prev
-        prev = crt
-        crt = next_node
+    while curr:
+        next_node = curr.next
+        curr.next = prev
+        prev = curr
+        curr = next_node
     
     return prev
+raise NotImplementedError
+
+
 
 def doubleIt(head):
     """
@@ -89,21 +91,20 @@ def doubleIt(head):
     """
 
     # TODO: Implement
-    # raise NotImplementedError
 
     head = reverseList (head)
 
-    crt = head
+    curr = head
     carry = 0
     while crt :
-        total = (crt.val * 2) + carry
-        crt.val = total % 10
+        total = (curr.val * 2) + carry
+        curr.val = total % 10
         carry = total // 10
 
-        if crt.next is None and carry > 0:
-            crt.next = Node(carry)
+        if curr.next is None and carry > 0:
+            curr.next = Node(carry)
             carry = 0 
-            break 
 
-        crt = crt.next
+        curr = curr.next
     return reverseList(head)    
+raise NotImplementedError
