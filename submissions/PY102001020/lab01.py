@@ -96,7 +96,7 @@ def doubleIt(head):
     crt = head
     carry = 0
     while crt :
-        total = crt.val * 2 + carry
+        total = (crt.val * 2) + carry
         crt.val = total % 10
         carry = total // 10
 
