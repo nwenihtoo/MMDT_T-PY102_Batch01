@@ -70,7 +70,7 @@ def reverseList(head):
         curr = next_node
     
     return prev
-raise NotImplementedError
+# raise NotImplementedError
 
 
 
@@ -107,4 +107,4 @@ def doubleIt(head):
 
         curr = curr.next
     return reverseList(head)    
-raise NotImplementedError
+# raise NotImplementedError
