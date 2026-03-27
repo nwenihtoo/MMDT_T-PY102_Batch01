@@ -138,13 +138,10 @@ def find_py_files(root: TreeNode) -> list[str]:
 
     result=[]
     node=preorder(root)
-    curr_folder=""
     
     for value in node:
-        if "." not in value:
-            curr_folder=value
-        elif value.endswith(".py"):
-            result.append(f"{curr_folder}/{value}")
+        if value.endswith(".py"):
+            result.append(value)
 
     return result
 
