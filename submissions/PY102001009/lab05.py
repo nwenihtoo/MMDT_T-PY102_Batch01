@@ -3,27 +3,32 @@
 # -------------------------
 from typing import Optional, List
 
+
 class TreeNode:
-    def __init__(self, value: int, left = None, right = None):
+    def __init__(self, value: int, left=None, right=None):
         self.value = value
         self.left = left
         self.right = right
+
 
 def inorder(root):
     if not root:
         return []
     return inorder(root.left) + [root.value] + inorder(root.right)
 
-def print_all_nodes(root: TreeNode|None):
+
+def print_all_nodes(root: TreeNode | None):
     if root is None:
         return
     for value in inorder(root):
         print(value)
 
+
 def height(root):
     if root is None:
         return 0
     return 1 + max(height(root.left), height(root.right))
+
 
 # ------------------------------------------------------------
 # Q1 — sorted_array_to_bst
@@ -38,27 +43,25 @@ def height(root):
 # - Recursively build left and right subtrees.
 # ------------------------------------------------------------
 
+
 def _build(nums: List[int], left: int, right: int):
-    # checking the middle int
-    mid = (left + right) //2
-    # tree root
-    root = TreeNode(nums[mid])
-    # building left sub-tree
-    if left <= mid - 1:
-        root.left = _build(nums,left,mid-1)
-    else:
-        root.left = None
-    # building right sub-tree
-    if right >= mid + 1:
-        root.right = _build(nums,mid+1,right)
-    else:
-        root.right = None
-    return root 
-    # raise NotImplementedError("Implement Q1 here.")
+    if left > right:
+        return None
+
+    mid = (left + right) // 2
+
+    node = TreeNode(nums[mid])
+
+    node.left = _build(nums, left, mid - 1)
+    node.right = _build(nums, mid + 1, right)
+
+    return node
+
 
 def sorted_array_to_bst(nums: List[int]) -> Optional[TreeNode]:
-   new_tree_root = _build(nums, 0, len(nums) - 1)
-   return new_tree_root
+    new_tree_root = _build(nums, 0, len(nums) - 1)
+    return new_tree_root
+
 
 # ------------------------------------------------------------
 # Q2 — insert_bst
@@ -74,15 +77,16 @@ def sorted_array_to_bst(nums: List[int]) -> Optional[TreeNode]:
 # - Return the root of the tree after insertion.
 # ------------------------------------------------------------
 
+
 def insert_bst(root: Optional[TreeNode], value: int):
     if root is None:
-        root = TreeNode(value)
-    elif value < root.value:
+        return TreeNode(value)
+    if value < root.value:
         root.left = insert_bst(root.left, value)
-    elif value > root.value:
-        root.right = insert_bst(root.right,value)
+    if value > root.value:
+        root.right = insert_bst(root.right, value)
     return root
-    # raise NotImplementedError("Implement Q2 here.")
+
 
 # ------------------------------------------------------------
 # Q3 — BST in real life application
@@ -103,27 +107,21 @@ def insert_bst(root: Optional[TreeNode], value: int):
 #
 # 4) Print all nodes of the final BST using provided function.
 #
-# 5) Print the max possible iterations to search a student id in your final BST. 
+# 5) Print the max possible iterations to search a student id in your final BST.
 # ------------------------------------------------------------
+
 
 def build_class_bst():
     init_id = 1001
     num_stus = 6
     nums = [init_id + k for k in range(num_stus)]
+
     root = sorted_array_to_bst(nums)
+    additional_ids = [1007, 1008]
 
-    #inserting additinal out-of-orders IDs
-    root = insert_bst(root,1000)
-    root = insert_bst(root,1010)
+    for id in additional_ids:
+        root = insert_bst(root, id)
 
-    #printing alll nodes of the final BST
     print_all_nodes(root)
 
-    #max possible iterations 
-    max_iter = height(root)
-    print(max_iter)
-
-    return root
-
-    # raise NotImplementedError("Implement Q3 here.")
-build_class_bst()
+    print("Max possible iterations to search a student id:", height(root))

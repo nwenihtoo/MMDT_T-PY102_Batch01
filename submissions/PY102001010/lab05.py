@@ -39,22 +39,14 @@ def height(root):
 # ------------------------------------------------------------
 
 def _build(nums: List[int], left: int, right: int):
-    # checking the middle int
-    mid = (left + right) //2
-    # tree root
-    root = TreeNode(nums[mid])
-    # building left sub-tree
-    if left <= mid - 1:
-        root.left = _build(nums,left,mid-1)
-    else:
-        root.left = None
-    # building right sub-tree
-    if right >= mid + 1:
-        root.right = _build(nums,mid+1,right)
-    else:
-        root.right = None
-    return root 
-    # raise NotImplementedError("Implement Q1 here.")
+    if left > right:
+        return None
+    mid = (left + right) // 2
+    node = TreeNode(nums[mid])
+    node.left = _build(nums, left, mid - 1)
+    node.right = _build(nums, mid + 1, right)
+    return node
+    raise NotImplementedError("Implement Q1 here.")
 
 def sorted_array_to_bst(nums: List[int]) -> Optional[TreeNode]:
    new_tree_root = _build(nums, 0, len(nums) - 1)
@@ -74,15 +66,15 @@ def sorted_array_to_bst(nums: List[int]) -> Optional[TreeNode]:
 # - Return the root of the tree after insertion.
 # ------------------------------------------------------------
 
-def insert_bst(root: Optional[TreeNode], value: int):
+def insert_bst(root: Optional[TreeNode], value: int)
     if root is None:
-        root = TreeNode(value)
-    elif value < root.value:
+        return TreeNode(value)
+    if value < root.value:
         root.left = insert_bst(root.left, value)
     elif value > root.value:
-        root.right = insert_bst(root.right,value)
+        root.right = insert_bst(root.right, value)
     return root
-    # raise NotImplementedError("Implement Q2 here.")
+    raise NotImplementedError("Implement Q2 here.")
 
 # ------------------------------------------------------------
 # Q3 — BST in real life application
@@ -111,19 +103,11 @@ def build_class_bst():
     num_stus = 6
     nums = [init_id + k for k in range(num_stus)]
     root = sorted_array_to_bst(nums)
-
-    #inserting additinal out-of-orders IDs
-    root = insert_bst(root,1000)
-    root = insert_bst(root,1010)
-
-    #printing alll nodes of the final BST
+    root = insert_bst(root, 1010)
+    root = insert_bst(root, 999)
+    print("All Nodes in BST:")
     print_all_nodes(root)
-
-    #max possible iterations 
-    max_iter = height(root)
-    print(max_iter)
-
+    max_iterations = height(root)
+    print(f"\nMax possible iterations to search: {max_iterations}")
     return root
-
-    # raise NotImplementedError("Implement Q3 here.")
-build_class_bst()
+    raise NotImplementedError("Implement Q3 here.")
