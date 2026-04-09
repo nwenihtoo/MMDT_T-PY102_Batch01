@@ -51,15 +51,16 @@ def helper_fun2_(arr, i):
 # ------------------------------------------------------------
 
 def schedule_next_job(jobs, new_job):
+    
+    # TODO: insert job
+    # TODO: move it upward as needed (like heap behavior)
+    
     jobs.append(new_job)
     helper_fun1_(jobs, len(jobs) - 1)
     return jobs
 
-    # TODO: insert job
-    # TODO: move it upward as needed (like heap behavior)
     
-
-
+    
 # ------------------------------------------------------------
 # Q2 — process_next_job
 # ------------------------------------------------------------
